@@ -1,7 +1,16 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>{{ content }}</h3>
+      <div v-if="content.length>0">
+        <div v-for="(product, index) in content" :key="index">
+          <h1>Termék név: {{ product.name }}</h1>
+          <h3>ár: {{ product.price }}</h3>
+          <img :src="product.imagePath" alt="" class="img-fluid max-with=50px" />
+        </div>
+      </div>
+      <div v-else>
+        Nincs egyetlen termék sem.
+      </div>
     </header>
   </div>
 </template>
@@ -13,13 +22,25 @@ export default {
   name: "User",
   data() {
     return {
-      content: "",
+      content: [],
     };
   },
+  updated () {
+   
+  },
   mounted() {
-    UserService.getProducts().then(
+    this.getProduct()
+  },
+  methods: {
+    getProduct() {
+      UserService.getProducts().then(
       (response) => {
-        this.content = response.data;
+        
+        this.content = response.data.products;
+        this.content.map(product => {
+          product.imagePath='http://localhost:8081/'+product.imagePath;
+          
+        })
       },
       (error) => {
         this.content =
@@ -30,6 +51,15 @@ export default {
           error.toString();
       }
     );
-  },
+    }
+  }
 };
 </script>
+<style scoped>
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 250px;
+}
+</style>
