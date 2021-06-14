@@ -25,7 +25,6 @@ export default {
       (response) => {
         this.content = response.data.HomePage[0];
         this.imagePath= 'http://localhost:8081/'+this.content.imagePath
-        console.log(this.content.imagePath)
       },
       (error) => {
         this.content =

@@ -9,6 +9,7 @@ class UserService {
   }
 
   getProducts() {
+
     return axios.get(API_URL + 'products', { headers: authHeader() });
   }
 
