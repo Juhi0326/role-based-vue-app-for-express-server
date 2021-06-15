@@ -1,36 +1,52 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-6">
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link to="/" class="nav-link">Home</router-link>
-          <router-link to="/Products" class="nav-link" v-if="productAccess" >Products</router-link>
-          <router-link to="/Login" class="nav-link" v-if="!loggedIn"
-            >Login</router-link
-          >
-          <router-link
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link to="/" class="nav-link">Home</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/Products" class="nav-link" v-if="productAccess"
+              >Products</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/Login" class="nav-link" v-if="!loggedIn"
+              >Login</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/Login" class="nav-link" v-if="!loggedIn"
+              >Login</router-link
+            >
+          </li>
+          <li class="nav-item">
+       <router-link
             to="/Login"
             class="nav-link"
             v-if="loggedIn"
             @click="logOut"
             >Log Out</router-link
           >
-          <div v-if="role">
-            <button type="button" class="btn btn-success">{{ role }}</button>
-          </div>
-        </div>
+          </li>
+        </ul>
+        <span class="navbar-text" v-if="role">
+          <button type="button" class="btn btn-success">{{ role }}</button>
+        </span>
       </div>
     </div>
   </nav>
