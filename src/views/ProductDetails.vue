@@ -1,4 +1,5 @@
 <template>
+
   <div>
     A termék neve: {{ content.name }}
   </div>

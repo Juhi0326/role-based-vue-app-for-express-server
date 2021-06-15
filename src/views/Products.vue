@@ -12,12 +12,13 @@
           />
         </form>
         <div v-for="(product, index) in filteredProducts" :key="index" class="mt-3">
-          <h1 @click="goToProductDetails">Termék név: {{ product.name }}</h1>
-          <h3>ár: {{ product.price }}</h3>
+          <h1 @click="goToProductDetails(product._id)">Termék név: {{ product.name }}</h1>
+          <h3 @click="goToProductDetails(product._id)">ár: {{ product.price }}</h3>
           <img
             :src="product.imagePath"
             alt=""
             class="img-fluid max-with=50px"
+            @click="goToProductDetails(product._id)"
           />
         </div>
       </div>
@@ -36,13 +37,18 @@ export default {
   data() {
     return {
       content: [],
-      searchField: ''
+      searchField: '',
+      id: null
     };
   },
+  updated () {
+      console.log(this.id)
+    },
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+    
     filteredProducts() {
       return this.content.filter(product  => {
 
@@ -76,6 +82,10 @@ export default {
         }
       );
     },
+    goToProductDetails(id) {
+      console.log(id)
+      this.$router.push("/Product-details/"+id)
+    }
   },
 };
 </script>
