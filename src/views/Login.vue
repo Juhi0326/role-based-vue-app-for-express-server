@@ -1,42 +1,41 @@
 <template>
-  <div class="container">
-    {{loggedIn}}
-    <div>{{currentUser}}</div>
-    <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <div class="row">
-          <div class="mb-3 col align-self-center col-6">
-            <label for="email">email</label>
-            <input
-              v-model="email"
-              type="email"
-              class="form-control"
-              id="email"
-              aria-describedby="emailHelp"
-            />
+  <div class="mt-5">
+      <div id="form" >
+        <form @submit.prevent="handleLogin">
+          <div class="form-group">
+            <div class="row">
+              <div class="mb-3 mt-5">
+                <label for="email" class="py-2">email</label>
+                <input
+                  v-model="email"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="mb-3 col align-self-center col-6">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" 
-            v-model="password"
-            class="form-control" 
-            id="password" />
+          <div class="form-group">
+            <div class="row">
+              <div class="mb-3">
+                <label for="password" class="py-2">Password</label>
+                <input
+                  type="password"
+                  v-model="password"
+                  class="form-control"
+                  id="password"
+                />
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="mb-3 col align-self-center col-6">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="mb-3 col align-self-center col-6">
-          <button @click="logOut" class="btn btn-primary">logOut</button>
-        </div>
-      </div>
-    </form>
   </div>
 </template>
 
@@ -46,9 +45,9 @@ export default {
   components: {},
   data() {
     return {
-    email: '',
-    password:''
-    }
+      email: "",
+      password: "",
+    };
   },
   computed: {
     loggedIn() {
@@ -56,27 +55,27 @@ export default {
     },
     currentUser() {
       return this.$store.state.auth.user;
-    }
-
+    },
   },
-/*   created() {
+  /*   created() {
     if (this.loggedIn) {
       this.$router.push("/profile");
     }
   }, */
   methods: {
     logOut() {
-      this.$store.dispatch('auth/logout');},
-    
+      this.$store.dispatch("auth/logout");
+    },
+
     handleLogin() {
-      const user= {
+      const user = {
         email: this.email,
-        password: this.password
-      }
+        password: this.password,
+      };
 
       this.$store.dispatch("auth/login", user).then(
         () => {
-          //this.$router.push("/profile");
+          this.$router.push("/products");
         },
         (error) => {
           console.log(error);
@@ -87,4 +86,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#form {
+  display: flex;
+  justify-content: center;
+  
+}
+#main {
+align-items: center;
+}
+</style>
