@@ -75,7 +75,7 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/products");
+          this.$router.push("/");
         },
         (error) => {
           console.log(error);
