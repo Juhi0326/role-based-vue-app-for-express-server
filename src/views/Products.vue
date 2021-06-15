@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <div v-if="content.length>0">
+      <div v-if="loggedIn">
         <div v-for="(product, index) in content" :key="index">
           <h1>Termék név: {{ product.name }}</h1>
           <h3>ár: {{ product.price }}</h3>
@@ -9,7 +9,8 @@
         </div>
       </div>
       <div v-else>
-        Nincs egyetlen termék sem.
+        <h1>be kell jelentkezned, hogy elérd a termékek listáját!</h1>
+        
       </div>
     </header>
   </div>
@@ -25,8 +26,10 @@ export default {
       content: [],
     };
   },
-  updated () {
-   
+   computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
   },
   mounted() {
     this.getProduct()

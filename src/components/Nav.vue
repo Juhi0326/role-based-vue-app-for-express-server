@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-6" >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-6">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
@@ -16,20 +16,39 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <router-link to="/" class="nav-link">Home</router-link>
-          <router-link to="/Products" class="nav-link">Products</router-link> 
-          <router-link to="/Login" class="nav-link">Login</router-link> 
+          <router-link to="/Products" class="nav-link">Products</router-link>
+          <router-link to="/Login" class="nav-link" v-if="!loggedIn"
+            >Login</router-link
+          >
+          <router-link
+            to="/Login"
+            class="nav-link"
+            v-if="loggedIn"
+            @click="logOut"
+            >Log Out</router-link
+          >
         </div>
-      </div> 
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-
-}
+  methods: {
+    logOut() {
+      this.$store.dispatch("auth/logout");
+    },
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
