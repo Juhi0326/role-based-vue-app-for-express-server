@@ -27,7 +27,7 @@
             @click="logOut"
             >Log Out</router-link
           >
-          <div v-if="role" class=" d-flex">
+          <div v-if="role">
             <button type="button" class="btn btn-success">{{ role }}</button>
           </div>
         </div>
