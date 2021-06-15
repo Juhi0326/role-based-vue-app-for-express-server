@@ -11,8 +11,8 @@
             aria-label="Search"
           />
         </form>
-        <div v-for="(product, index) in filteredProducts" :key="index">
-          <h1>Termék név: {{ product.name }}</h1>
+        <div v-for="(product, index) in filteredProducts" :key="index" class="mt-3">
+          <h1 @click="goToProductDetails">Termék név: {{ product.name }}</h1>
           <h3>ár: {{ product.price }}</h3>
           <img
             :src="product.imagePath"
