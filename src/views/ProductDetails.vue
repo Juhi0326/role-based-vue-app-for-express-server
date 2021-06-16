@@ -1,9 +1,30 @@
 <template>
-  <div>A termék neve: {{ content.name }}</div>
+  <div class="d-flex justify-content-between mt-3">
+    <span> termék neve: {{ content.name }} </span>
+    <span v-if="access"
+      ><button type="button" class="btn btn-primary btn-sm">
+        termék nevének megváltoztatása
+      </button>
+    </span>
+  </div>
 
-  <div>A termék ára: {{ content.price }}</div>
-  
-  <img :src="content.imagePath" alt="" class="img-fluid max-with=50px" />
+  <div class="d-flex justify-content-between mt-3">
+    <span> termék ára: {{ content.price }} </span>
+    <span v-if="access"
+      ><button type="button" class="btn btn-primary btn-sm">
+        termék árának megváltoztatása
+      </button>
+    </span>
+  </div>
+
+    <div class="d-flex justify-content-between mt-3">
+    <span> <img :src="content.imagePath" alt="" class="responsive" /> </span>
+    <span v-if="access"
+      ><button type="button" class="btn btn-primary btn-sm">
+        kép megváltoztatása
+      </button>
+    </span>
+  </div>
 </template>
 
 <script>
@@ -12,18 +33,17 @@ export default {
   data() {
     return {
       content: [],
+      access: false,
     };
   },
   computed: {
     productId() {
       return this.$route.params.id;
     },
-    /*   actualProduct () {
-
-    } */
   },
   created() {
     this.getProduct();
+    this.getAccessInfo();
   },
   methods: {
     getProduct() {
@@ -52,8 +72,20 @@ export default {
       });
       return `${value} Ft`;
     },
+    getAccessInfo() {
+      if (this.$store.state.auth.user.role === "admin") {
+        this.access = true;
+      }
+      console.log(this.access);
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.responsive {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+</style>
