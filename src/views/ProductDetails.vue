@@ -1,18 +1,9 @@
 <template>
+  <div>A termék neve: {{ content.name }}</div>
 
-  <div>
-    A termék neve: {{ content.name }}
-  </div>
-
-    <div>
-    A termék ára: {{ content.price }}
-  </div>
-    <img
-            :src="content.imagePath"
-            alt=""
-            class="img-fluid max-with=50px"
-          />
-
+  <div>A termék ára: {{ content.price }}</div>
+  
+  <img :src="content.imagePath" alt="" class="img-fluid max-with=50px" />
 </template>
 
 <script>
@@ -31,17 +22,18 @@ export default {
 
     } */
   },
-created () {
-    this.getProduct()
-},
+  created() {
+    this.getProduct();
+  },
   methods: {
     getProduct() {
       const id = this.productId;
       UserService.getProductyId(id).then(
         (response) => {
-            
           this.content = response.data.product;
-          this.content.imagePath = "http://localhost:8081/" + this.content.imagePath
+          this.content.price = this.formatMoney(this.content.price);
+          this.content.imagePath =
+            "http://localhost:8081/" + this.content.imagePath;
         },
         (error) => {
           this.content =
@@ -52,6 +44,13 @@ created () {
             error.toString();
         }
       );
+    },
+    formatMoney(amount) {
+      const value = Number(amount).toLocaleString("hu-HU", {
+        // minimumFractionDigits: 2,
+        // maximumFractionDigits: 2,
+      });
+      return `${value} Ft`;
     },
   },
 };

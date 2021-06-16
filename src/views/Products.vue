@@ -64,12 +64,20 @@ export default {
     this.getProduct();
   },
   methods: {
+    formatMoney(amount) {
+      const value = Number(amount).toLocaleString("hu-HU", {
+        // minimumFractionDigits: 2,
+        // maximumFractionDigits: 2,
+      });
+      return `${value} Ft`;
+    },
     getProduct() {
       UserService.getProducts().then(
         (response) => {
           this.content = response.data.products;
           this.content.map((product) => {
             product.imagePath = "http://localhost:8081/" + product.imagePath;
+            product.price = this.formatMoney(product.price);
           });
         },
         (error) => {
