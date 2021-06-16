@@ -3,7 +3,7 @@
     <header class="jumbotron">
       <h1>{{ content.Title}}</h1>
       <h3>{{ content.Heading}}</h3>
-      <img :src="imagePath" alt="">
+      <img :src="imagePath" alt="" class="responsive">
     </header>
   </div>
 </template>
@@ -38,3 +38,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.responsive {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+</style>

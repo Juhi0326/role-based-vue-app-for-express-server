@@ -17,7 +17,7 @@
           <img
             :src="product.imagePath"
             alt=""
-            class="img-fluid max-with=50px"
+            class="img-fluid max-with=50px mb-5"
             @click="goToProductDetails(product._id)"
           />
         </div>
