@@ -32,6 +32,7 @@
 <script>
 import UserService from "../services/user.service";
 
+
 export default {
   name: "User",
   data() {
@@ -63,6 +64,8 @@ export default {
   },
   created() {
     this.getProduct();
+    console.log(this.$store.getters['products/getAllProducts'])
+  
   },
   methods: {
     formatMoney(amount) {

@@ -14,9 +14,12 @@ export default {
     Nav,
     Footer,
   },
+   created () {
+    this.$store.dispatch('products/getProducts');
+  },
 };
 </script>
-
+  
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
