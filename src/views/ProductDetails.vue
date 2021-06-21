@@ -2,12 +2,14 @@
   <div class="d-flex justify-content-between mt-3">
     <span> termék neve: {{ content.name }} </span>
     <span v-if="access"
-      ><button type="button" class="btn btn-primary btn-sm">
-        termék nevének megváltoztatása
-      </button>
+      >
+      <ChangeDataModal 
+      text='Termék nevének megváltoztatása'
+      title= 'Írd be az új termék nevet!'
+      :content="content.name" />
     </span>
   </div>
-
+  
   <div class="d-flex justify-content-between mt-3">
     <span> termék ára: {{ content.price }} </span>
     <span v-if="access"
@@ -17,7 +19,7 @@
     </span>
   </div>
 
-    <div class="d-flex justify-content-between mt-3">
+  <div class="d-flex justify-content-between mt-3">
     <span> <img :src="content.imagePath" alt="" class="responsive" /> </span>
     <span v-if="access"
       ><button type="button" class="btn btn-primary btn-sm">
@@ -29,7 +31,11 @@
 
 <script>
 import UserService from "../services/user.service";
+import ChangeDataModal from '../components/ChangeDataModal.vue'
 export default {
+  components: {
+    ChangeDataModal
+  },
   data() {
     return {
       content: [],

@@ -50,6 +50,7 @@ export default {
     },
     
     filteredProducts() {
+      
       return this.content.filter(product  => {
 
         if (product.name.toLowerCase().includes(this.searchField.toLowerCase())) {
@@ -60,7 +61,7 @@ export default {
       });
     },
   },
-  mounted() {
+  created() {
     this.getProduct();
   },
   methods: {
