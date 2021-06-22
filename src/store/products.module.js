@@ -8,8 +8,10 @@ export const products = {
   actions: {
     getProducts({ commit }, products) {
       return userService.getProducts().then(
-        (product) => {
-          commit("getProductsSuccess", product);
+        (response) => {
+          products = response.data.products;
+
+          commit("getProductsSuccess", products);
           return Promise.resolve(products);
         },
         (error) => {
@@ -19,15 +21,18 @@ export const products = {
       );
     },
   },
-  getters:{
-      getAllProducts(state) {
-        return state.products
-      }
+  getters: {
+    getAllProducts(state) {
+      return state.products;
+    },
   },
 
   mutations: {
     getProductsSuccess(state, products) {
       state.products = products;
+      state.products.map((product) => {
+        product.imagePath = "http://localhost:8081/" + product.imagePath;
+      });
     },
     productsFailure(state) {
       state.products = null;
