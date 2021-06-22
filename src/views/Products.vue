@@ -77,12 +77,17 @@ export default {
         // maximumFractionDigits: 2,
       });
       return `${value} Ft`;
+      
+
     },
 
-    async getProducts() {
-      this.content = await this.$store.getters["products/getAllProducts"];
+    getProducts() {
+      this.content = this.$store.getters["products/getAllProducts"];
       this.content.map((product) => {
-        product.price = this.formatMoney(product.price);
+        if (typeof(product.price)==='number') {
+          product.price = this.formatMoney(product.price);
+        }
+        
       });
     },
     goToProductDetails(id) {
