@@ -4,6 +4,7 @@
     <span v-if="access"
       >
       <ChangeDataModal 
+      @update-name="updateProductName"
       text='Termék nevének megváltoztatása'
       title= 'Írd be az új termék nevet!'
       :content="content.name" />
@@ -36,6 +37,7 @@ export default {
   components: {
     ChangeDataModal
   },
+  
   data() {
     return {
       content: [],
@@ -70,6 +72,10 @@ export default {
             error.toString();
         }
       );
+    },
+    updateProductName() {
+      console.log(this.$route.params.id);
+    
     },
     formatMoney(amount) {
       const value = Number(amount).toLocaleString("hu-HU", {

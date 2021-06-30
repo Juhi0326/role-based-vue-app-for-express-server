@@ -15,12 +15,14 @@
       <CustomInput 
         :inputText="content"
         inputTitle = "új név:"
+   
       />
       <div class="modal-footer">
         <Button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</Button>
         <Button 
         type="button" 
         class="btn btn-primary"
+        data-bs-dismiss="modal"
         @click="saveChange"
         >változások mentése</Button>
       </div>
@@ -38,6 +40,7 @@ export default {
       title: String,
       content: String
     },
+    emits: ['updateName'],
     components: {
         Button,
         CustomInput
@@ -45,6 +48,8 @@ export default {
     methods:{
       saveChange () {
         console.log('save')
+        
+        this.$emit('updateName')
       }
     },
 };
