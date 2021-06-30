@@ -6,8 +6,8 @@ export const products = {
     products: [],
   },
   actions: {
-    getProducts({ commit }, products) {
-      return userService.getProducts().then(
+    async getProducts({ commit }, products) {
+      return await userService.getProducts().then(
         (response) => {
           products = response.data.products;
 
