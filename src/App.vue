@@ -14,8 +14,8 @@ export default {
     Nav,
     Footer,
   },
-   created () {
-    this.$store.dispatch('products/getProducts');
+   mounted () {
+    
   },
 };
 </script>

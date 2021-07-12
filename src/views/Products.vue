@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import userService from "../services/user.service";
 export default {
   name: "User",
   data() {
@@ -56,10 +57,12 @@ export default {
     filteredProducts() {
       return this.content.filter((product) => {
         if (
+          product.name &&
           product.name.toLowerCase().includes(this.searchField.toLowerCase())
         ) {
           return product;
         } else if (
+          product.price &&
           product.price.toString().includes(this.searchField.toLowerCase())
         ) {
           return product;
@@ -77,18 +80,26 @@ export default {
         // maximumFractionDigits: 2,
       });
       return `${value} Ft`;
-      
-
     },
 
-    getProducts() {
-      this.content = this.$store.getters["products/getAllProducts"];
+    async getProducts() {
+      await userService.getProducts().then(
+        (response) => {
+          this.content = response.data.products;
+        },
+      
+      );
       this.content.map((product) => {
-        if (typeof(product.price)==='number') {
-          product.price = this.formatMoney(product.price);
-        }
-        
+        product.imagePath = "http://localhost:8081/" + product.imagePath;
       });
+
+      if (this.content) {
+        this.content.map((product) => {
+          if (typeof product.price === "number") {
+            product.price = this.formatMoney(product.price);
+          }
+        });
+      }
     },
     goToProductDetails(id) {
       console.log(id);
