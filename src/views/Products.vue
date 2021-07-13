@@ -11,25 +11,32 @@
             aria-label="Search"
           />
         </form>
-        <div
+        <div class="row">
+          <div
           v-for="(product, index) in filteredProducts"
           :key="index"
-          class="mt-3"
+          class="mt-3 col"        
         >
-          <h1 @click="goToProductDetails(product._id)">
-            Termék név: {{ product.name }}
-          </h1>
-          <h3 @click="goToProductDetails(product._id)">
-            ár: {{ product.price }}
-          </h3>
-          <img
-            :src="product.imagePath"
-            alt=""
-            class="img-fluid max-with=50px mb-5"
-            @click="goToProductDetails(product._id)"
-          />
+          <div class="card" style="width: 18rem;">
+            <img
+              :src="product.imagePath"
+              :alt="product.name"
+              @click="goToProductDetails(product._id)"
+            />
+            <div class="card-body">
+              <h5 class="card-title" @click="goToProductDetails(product._id)">
+                Termék név: {{ product.name }}
+              </h5>
+              <p class="card-text" @click="goToProductDetails(product._id)">
+                ár: {{ product.price }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+
+        </div>
+        
       <div v-else>
         <h1>be kell jelentkezned, hogy elérd a termékek listáját!</h1>
       </div>
@@ -83,12 +90,9 @@ export default {
     },
 
     async getProducts() {
-      await userService.getProducts().then(
-        (response) => {
-          this.content = response.data.products;
-        },
-      
-      );
+      await userService.getProducts().then((response) => {
+        this.content = response.data.products;
+      });
       this.content.map((product) => {
         product.imagePath = "http://localhost:8081/" + product.imagePath;
       });
@@ -114,5 +118,6 @@ img {
   border-radius: 4px;
   padding: 5px;
   width: 250px;
+  height: 200px;
 }
 </style>

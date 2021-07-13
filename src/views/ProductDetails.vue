@@ -110,6 +110,61 @@
   </div>
 
   <div class="d-flex justify-content-between mt-3">
+    <span> termék leírása: {{ Product.description }} </span>
+    <span v-if="access">
+      <!-- Button trigger modal -->
+      <Button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal3"
+      >
+        Termék leírásának megváltoztatása
+      </Button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal3"
+        tabindex="-1"
+        aria-labelledby="exampleModal3Label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModa3lLabel">
+                Írd be az új leírást!
+              </h5>
+              <Button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></Button>
+            </div>
+            <CustomInput :inputTitle="title" @custom-change="logChange3" />
+            <div class="modal-footer">
+              <Button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                >Close</Button
+              >
+              <Button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                >változások mentése</Button
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>
+  </div>
+
+  <div class="d-flex justify-content-between mt-3">
     <span> <img :src="content.imagePath" alt="" class="responsive" /> </span>
     <span v-if="access"
       ><button type="button" class="btn btn-primary btn-sm">
@@ -170,6 +225,12 @@ export default {
       ]);
       this.getProduct();
     },
+    async updateProductDescription(event) {
+      await UserService.updateProductsById(this.$route.params.id, [
+        { propName: "description", value: event },
+      ]);
+      this.getProduct();
+    },
     formatMoney(amount) {
       const value = Number(amount).toLocaleString("hu-HU", {
         // minimumFractionDigits: 2,
@@ -187,6 +248,9 @@ export default {
     },
     logChange2(event) {
       this.updateProductPrice(event);
+    },
+    logChange3(event) {
+      this.updateProductDescription(event);
     },
   },
 };
