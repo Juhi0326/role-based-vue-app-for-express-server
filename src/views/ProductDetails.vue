@@ -1,21 +1,109 @@
 <template>
   <div class="d-flex justify-content-between mt-3">
     <span> termék neve: {{ Product.name }} </span>
-    <span v-if="access"
+    <span v-if="access">
+      <!-- Button trigger modal -->
+      <Button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
       >
-      <ChangeDataModal 
-      @update-name="updateProductName"
-      text='Termék nevének megváltoztatása'
-      title= 'Írd be az új termék nevet!' />
+        Termék nevének megváltoztatása
+      </Button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Írd be az új terméknevet!
+              </h5>
+              <Button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></Button>
+            </div>
+            <CustomInput :inputTitle="title" @custom-change="logChange" />
+            <div class="modal-footer">
+              <Button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                >Close</Button
+              >
+              <Button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                >változások mentése</Button
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </span>
   </div>
-  
+
   <div class="d-flex justify-content-between mt-3">
     <span> termék ára: {{ Product.price }} </span>
-    <span v-if="access"
-      ><button type="button" class="btn btn-primary btn-sm">
-        termék árának megváltoztatása
-      </button>
+    <span v-if="access">
+      <!-- Button trigger modal -->
+  <Button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal2"
+  >
+    Írd be az új árat!
+  </Button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal2"
+    tabindex="-1"
+    aria-labelledby="exampleModal2Label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModa2lLabel">Termék árának megváltoztatása</h5>
+          <Button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></Button>
+        </div>
+        <CustomInput :inputTitle="title" @custom-change="logChange2" />
+        <div class="modal-footer">
+          <Button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            >Close</Button
+          >
+          <Button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            >változások mentése</Button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
     </span>
   </div>
 
@@ -31,17 +119,19 @@
 
 <script>
 import UserService from "../services/user.service";
-import ChangeDataModal from '../components/ChangeDataModal.vue'
+import Button from "../components/Button.vue";
+import CustomInput from "../components/CustomInput.vue";
 export default {
   components: {
-    ChangeDataModal
+    
+    Button,
+    CustomInput,
   },
-  
+
   data() {
     return {
       content: [],
       access: false,
-      updateNumber: 0
     };
   },
   computed: {
@@ -49,7 +139,7 @@ export default {
       return this.$route.params.id;
     },
     Product() {
-      return this.content
+      return this.content;
     },
   },
   created() {
@@ -58,30 +148,26 @@ export default {
   },
 
   methods: {
-    getProduct() {
+    async getProduct() {
       const id = this.productId;
-      UserService.getProductyId(id).then(
-        (response) => {
-          this.content = response.data.product;
-          this.content.price = this.formatMoney(this.content.price);
-          this.content.imagePath =
-            "http://localhost:8081/" + this.content.imagePath;
-        },
-        (error) => {
-          this.content =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-        }
-      );
+      await UserService.getProductyId(id).then((response) => {
+        this.content = response.data.product;
+        this.content.price = this.formatMoney(this.content.price);
+        this.content.imagePath =
+          "http://localhost:8081/" + this.content.imagePath;
+      });
     },
     updateProductName(event) {
-      
-      UserService.updateProductsById(this.$route.params.id, [{'propName' : 'name', 'value': event}])
-      this.getProduct()
-      
+      UserService.updateProductsById(this.$route.params.id, [
+        { propName: "name", value: event },
+      ]);
+      this.getProduct();
+    },
+    async updateProductPrice(event) {
+      await UserService.updateProductsById(this.$route.params.id, [
+        { propName: "price", value: event },
+      ]);
+      this.getProduct();
     },
     formatMoney(amount) {
       const value = Number(amount).toLocaleString("hu-HU", {
@@ -94,6 +180,12 @@ export default {
       if (this.$store.state.auth.user.role === "admin") {
         this.access = true;
       }
+    },
+    logChange(event) {
+      this.updateProductName(event)
+    },
+    logChange2(event) {
+      this.updateProductPrice(event)
     },
   },
 };
