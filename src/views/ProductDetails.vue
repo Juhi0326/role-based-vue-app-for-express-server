@@ -64,7 +64,7 @@
     data-bs-toggle="modal"
     data-bs-target="#exampleModal2"
   >
-    Írd be az új árat!
+    Termék árának megváltoztatása
   </Button>
 
   <!-- Modal -->
@@ -78,7 +78,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModa2lLabel">Termék árának megváltoztatása</h5>
+          <h5 class="modal-title" id="exampleModa2lLabel">Írd be az új árat!</h5>
           <Button
             type="button"
             class="btn-close"
