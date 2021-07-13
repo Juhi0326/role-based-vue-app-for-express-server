@@ -58,52 +58,54 @@
     <span> termék ára: {{ Product.price }} </span>
     <span v-if="access">
       <!-- Button trigger modal -->
-  <Button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal2"
-  >
-    Termék árának megváltoztatása
-  </Button>
+      <Button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal2"
+      >
+        Termék árának megváltoztatása
+      </Button>
 
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal2"
-    tabindex="-1"
-    aria-labelledby="exampleModal2Label"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModa2lLabel">Írd be az új árat!</h5>
-          <Button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></Button>
-        </div>
-        <CustomInput :inputTitle="title" @custom-change="logChange2" />
-        <div class="modal-footer">
-          <Button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            >Close</Button
-          >
-          <Button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            >változások mentése</Button
-          >
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModal2Label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModa2lLabel">
+                Írd be az új árat!
+              </h5>
+              <Button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></Button>
+            </div>
+            <CustomInput :inputTitle="title" @custom-change="logChange2" />
+            <div class="modal-footer">
+              <Button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                >Close</Button
+              >
+              <Button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                >változások mentése</Button
+              >
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
     </span>
   </div>
 
@@ -123,7 +125,6 @@ import Button from "../components/Button.vue";
 import CustomInput from "../components/CustomInput.vue";
 export default {
   components: {
-    
     Button,
     CustomInput,
   },
@@ -182,10 +183,10 @@ export default {
       }
     },
     logChange(event) {
-      this.updateProductName(event)
+      this.updateProductName(event);
     },
     logChange2(event) {
-      this.updateProductPrice(event)
+      this.updateProductPrice(event);
     },
   },
 };
