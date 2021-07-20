@@ -63,7 +63,7 @@ export default {
       if (this.$store.state.auth.user) {
         this.role = this.$store.state.auth.user.role;
       } else {
-        this.role = "Gest";
+        this.role = "Guest";
       }
     },
     checkProductAccess() {
