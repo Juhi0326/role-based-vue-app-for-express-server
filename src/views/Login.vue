@@ -31,7 +31,12 @@
           </div>
           <div class="row">
             <div class="mb-3">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+            <br>
+            <div>
+              
+              <router-link to="/signup">or Sign up </router-link>
             </div>
           </div>
         </form>
