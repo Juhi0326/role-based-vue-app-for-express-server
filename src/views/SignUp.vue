@@ -3,7 +3,6 @@
   <div v-if="error" id="error">
     {{errorMessage.message}}
   </div>
-  <div class="container">
     <div class="mt-5">
       <div class="row">
         <form @submit.prevent="handleSignUp">
@@ -46,7 +45,6 @@
         </form>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
