@@ -9,6 +9,21 @@
           <div class="form-group">
             <div class="row justify-content-md-center">
               <div class="mb-3 mt-5 col-8">
+                <label for="userName" class="py-2">Username</label>
+                <input
+                  v-model="userName"
+                  type="text"
+                  class="form-control"
+                  id="userName"                
+                  placeholder="Please type your username"
+                  @keyup="clearError"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row justify-content-md-center">
+              <div class="mb-3 col-8">
                 <label for="email" class="py-2">email</label>
                 <input
                   v-model="email"
@@ -54,6 +69,7 @@ export default {
   components: {},
   data() {
     return {
+      userName: "",
       email: "",
       password: "",
       error: false,
@@ -65,6 +81,7 @@ export default {
     handleSignUp() {
        
         const user = {
+          userName: this.userName,
           email: this.email,
           password: this.password,
           role: "user",
@@ -81,6 +98,7 @@ export default {
           if (response.status === 201) {
             console.log("sikerült");
             console.log(response.data)
+            this.userName = "";
             this.email = "";
             this.password = "";
           }
