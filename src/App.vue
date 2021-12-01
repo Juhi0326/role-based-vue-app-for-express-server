@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <Nav class="mb-3"> </Nav>
+    <div id="modals"></div>
     <router-view />
     <Footer />
   </div>

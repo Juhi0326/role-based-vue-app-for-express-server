@@ -95,4 +95,6 @@ export default {
 #main {
 align-items: center;
 }
+
+
 </style>
