@@ -1,41 +1,58 @@
 <template>
+  <h1>Login Form</h1>
+  <div v-if="error" id="error">
+    {{ errorMessage }}
+  </div>
   <div class="mt-5">
-      <div id="form" >
-        <form @submit.prevent="handleLogin">
-          <div class="form-group">
-            <div class="row">
-              <div class="mb-3 mt-5">
-                <label for="email" class="py-2">email</label>
-                <input
-                  v-model="email"
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  aria-describedby="emailHelp"
-                />
-              </div>
+    <div class="row">
+      <form @submit.prevent="handleLogin">
+        <div class="form-group">
+          <div class="row justify-content-md-center">
+            <div class="mb-3 mt-5 col-8">
+              <label for="email" class="py-2">Email</label>
+              <input
+                v-model="email"
+                type="email"
+                class="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                placeholder="Please type your email"
+                @keyup="clearError"
+              />
             </div>
           </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="mb-3">
-                <label for="password" class="py-2">Password</label>
-                <input
-                  type="password"
-                  v-model="password"
-                  class="form-control"
-                  id="password"
-                />
-              </div>
+        </div>
+        <div class="form-group">
+          <div class="row justify-content-md-center">
+            <div class="mb-3 col-8">
+              <label for="password" class="py-2">Password</label>
+              <input
+                type="password"
+                v-model="password"
+                class="form-control"
+                id="password"
+                placeholder="Please type your password"
+                @keyup="clearError"
+              />
             </div>
           </div>
-          <div class="row">
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              :disabled="!email.length || !password.length"
+            >
+              Login
+            </button>
           </div>
-        </form>
-      </div>
+          <div>
+            <router-link to="/signup">or Sign up </router-link>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -47,6 +64,8 @@ export default {
     return {
       email: "",
       password: "",
+      error: false,
+      errorMessage: "",
     };
   },
   computed: {
@@ -76,11 +95,19 @@ export default {
       this.$store.dispatch("auth/login", user).then(
         () => {
           this.$router.push("/");
+          console.log(this.$store.user)
         },
         (error) => {
+          this.error = true;
+          this.errorMessage = "Auth failed!";
+          console.log("Auth failed");
           console.log(error);
         }
       );
+    },
+    clearError() {
+      this.error = false;
+      this.errorMessage = "";
     },
   },
 };
@@ -90,10 +117,12 @@ export default {
 #form {
   display: flex;
   justify-content: center;
-  
+}
+#error {
+  color: crimson;
 }
 #main {
-align-items: center;
+  align-items: center;
 }
 
 

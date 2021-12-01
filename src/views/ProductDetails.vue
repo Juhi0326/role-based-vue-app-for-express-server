@@ -21,7 +21,7 @@
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
-        Termék nevének megváltoztatása
+        Termék Módosítása
       </Button>
 
       <!-- Modal -->
@@ -36,7 +36,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                Írd be az új terméknevet!
+                Termék módosítása
               </h5>
               <Button
                 type="button"
@@ -45,7 +45,13 @@
                 aria-label="Close"
               ></Button>
             </div>
-            <CustomInput :inputTitle="title" @custom-change="logChange" />
+            <CustomInput inputTitle="új termék név" @custom-change="logChange" />
+            <br>
+            <CustomInput inputTitle="új termék ár" @custom-change="logChange" />
+                        <br>
+            <CustomInput inputTitle="új leírás" @custom-change="logChange" />
+                        <br>
+            <CustomInput inputTitle="új kép" @custom-change="logChange" />
             <div class="modal-footer">
               <Button
                 type="button"

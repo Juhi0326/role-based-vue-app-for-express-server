@@ -3,7 +3,7 @@
     <span class="input-group-text" id="addon-wrapping">{{ inputTitle }}</span>
     <input
       type="text"
-      class="form-control"
+      class="form-control px-2"
       aria-label="Username"
       aria-describedby="addon-wrapping"
      @change='customChange'
